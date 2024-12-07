@@ -39,7 +39,7 @@ class OrganService implements OrganServiceInterface
     public function create(array $data)
     {
         $request = new CreateOrganRequest($data);
-        $validated = $request->validated();
+        $validated = $request->all();
 
         // Popula valores padrão, se necessário, do tipo de órgão
         if (!isset($validated['expiration_date'])) {

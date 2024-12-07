@@ -142,7 +142,7 @@ class OrganController extends Controller
      */
     public function available(): JsonResponse
     {
-        $organs = $this->service->getAvailable();
+        $organs = $this->service->getAvailableOrgans();
         return response()->json([
             'status' => 'success',
             'message' => 'Órgãos disponíveis listados com sucesso.',

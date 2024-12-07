@@ -2,13 +2,16 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\OrganTypeController;
 use App\Repositories\AddressRepository;
 use App\Repositories\Contracts\AddressRepositoryInterface;
 use App\Repositories\Contracts\HospitalRepositoryInterface;
 use App\Repositories\Contracts\OrganRepositoryInterface;
+use App\Repositories\Contracts\OrganTypeRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\HospitalRepository;
 use App\Repositories\OrganRepository;
+use App\Repositories\OrganTypeRepository;
 use App\Repositories\UserRepository;
 use App\Services\AddressService;
 use App\Services\AuthService;
@@ -16,9 +19,11 @@ use App\Services\Contracts\AddressServiceInterface;
 use App\Services\Contracts\AuthServiceInterface;
 use App\Services\Contracts\HospitalServiceInterface;
 use App\Services\Contracts\OrganServiceInterface;
+use App\Services\Contracts\OrganTypeServiceInterface;
 use App\Services\Contracts\UserServiceInterface;
 use App\Services\HospitalService;
 use App\Services\OrganService;
+use App\Services\OrganTypeService;
 use App\Services\UserService;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\ServiceProvider;
@@ -43,8 +48,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(OrganServiceInterface::class, OrganService::class);
         $this->app->bind(OrganRepositoryInterface::class, OrganRepository::class);
 
-        $this->app->bind(OrganServiceInterface::class, OrganService::class);
-        $this->app->bind(OrganRepositoryInterface::class, OrganRepository::class);
+        $this->app->bind(OrganTypeServiceInterface::class, OrganTypeService::class);
+        $this->app->bind(OrganTypeRepositoryInterface::class, OrganTypeRepository::class);
+;
 
         $this->app->bind(AuthServiceInterface::class, AuthService::class);
 

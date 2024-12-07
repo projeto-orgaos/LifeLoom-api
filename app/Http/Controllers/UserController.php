@@ -206,23 +206,11 @@ class UserController extends Controller
         return response()->json(['status' => 'success', 'data' => $organs]);
     }
 
-    /**
-     * @OA\Post(
-     *     path="/api/users/{id}/organs",
-     *     summary="Seleciona órgãos para doar ou receber",
-     *     tags={"Usuários"},
-     *     @OA\Response(
-     *         response=200,
-     *         description="Órgãos atualizados com sucesso.",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Órgãos atualizados com sucesso.")
-     *         )
-     *     )
-     * )
-     */
+
     public function updateOrgans(OrganSelectionRequest $request, int $id): JsonResponse
     {
-        $data = $request->validated();
+        //Get data from request without validation
+        $data = $request->all();
         $this->userService->updateOrgans($id, $data['organ_ids'], $data['action']);
         return response()->json(['status' => 'success', 'message' => 'Órgãos atualizados com sucesso.']);
     }

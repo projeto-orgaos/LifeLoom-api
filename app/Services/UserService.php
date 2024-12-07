@@ -116,16 +116,16 @@ class UserService implements UserServiceInterface
                 $this->organService->create([
                     'organ_type_id' => $organTypeId,
                     'status' => 'Pending',
-                    'donor_id' => $user->profile_id === 'donor' ? $userId : null,
-                    'recipient_id' => $user->profile_id === 'recipient' ? $userId : null,
+                    'donor_id' => $user->profile_id === 'Doador' ? $userId : null,
+                    'recipient_id' => $user->profile_id === 'Receptor' ? $userId : null,
                 ]);
             }
         } elseif ($action === 'remove') {
             foreach ($organIds as $organId) {
                 $organ = $this->organService->getById($organId);
                 if (
-                    ($organ->donor_id === $userId && $user->profile_id === 'donor') ||
-                    ($organ->recipient_id === $userId && $user->profile_id === 'recipient')
+                    ($organ->donor_id === $userId && $user->profile_id === 'Doador') ||
+                    ($organ->recipient_id === $userId && $user->profile_id === 'Receptor')
                 ) {
                     $this->organService->delete($organId);
                 }

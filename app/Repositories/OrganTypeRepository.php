@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\OrganType;
 use App\Repositories\Contracts\OrganTypeRepositoryInterface;
 
-class OrganTypeRepository implements OrganTypeRepositoryInterface
+class OrganTypeRepository extends BaseRepository implements  OrganTypeRepositoryInterface
 {
     protected $model;
 
@@ -29,12 +29,7 @@ class OrganTypeRepository implements OrganTypeRepositoryInterface
         return $this->model->create($data);
     }
 
-    public function update(int $id, array $data)
-    {
-        $type = $this->getById($id);
-        $type->update($data);
-        return $type;
-    }
+
 
     public function delete(int $id)
     {
