@@ -1,0 +1,2052 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "LifeLoom API",
+        "description": "L5 Swagger OpenApi description",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/addresses": {
+            "get": {
+                "tags": [
+                    "Addresses"
+                ],
+                "summary": "Listar todos os endereços",
+                "operationId": "33ccea30443418dbab9242aa67931614",
+                "responses": {
+                    "200": {
+                        "description": "Lista de endereços retornada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Lista de endereços retornada com sucesso."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "street": {
+                                                        "type": "string",
+                                                        "example": "Rua das Flores"
+                                                    },
+                                                    "number": {
+                                                        "type": "string",
+                                                        "example": "123"
+                                                    },
+                                                    "neighborhood": {
+                                                        "type": "string",
+                                                        "example": "Centro"
+                                                    },
+                                                    "city": {
+                                                        "type": "string",
+                                                        "example": "São Paulo"
+                                                    },
+                                                    "state": {
+                                                        "type": "string",
+                                                        "example": "SP"
+                                                    },
+                                                    "zip_code": {
+                                                        "type": "string",
+                                                        "example": "01000-000"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Addresses"
+                ],
+                "summary": "Criar um novo endereço",
+                "operationId": "5549e34fec9817a9794302a767fc7fde",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "street",
+                                    "neighborhood",
+                                    "city",
+                                    "state",
+                                    "zip_code"
+                                ],
+                                "properties": {
+                                    "street": {
+                                        "type": "string",
+                                        "example": "Rua das Flores"
+                                    },
+                                    "number": {
+                                        "type": "string",
+                                        "example": "123"
+                                    },
+                                    "complement": {
+                                        "type": "string",
+                                        "example": "Apto 101"
+                                    },
+                                    "neighborhood": {
+                                        "type": "string",
+                                        "example": "Centro"
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "example": "São Paulo"
+                                    },
+                                    "state": {
+                                        "type": "string",
+                                        "example": "SP"
+                                    },
+                                    "zip_code": {
+                                        "type": "string",
+                                        "example": "01000-000"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Endereço criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Endereço criado com sucesso."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "street": {
+                                                    "type": "string",
+                                                    "example": "Rua das Flores"
+                                                },
+                                                "number": {
+                                                    "type": "string",
+                                                    "example": "123"
+                                                },
+                                                "neighborhood": {
+                                                    "type": "string",
+                                                    "example": "Centro"
+                                                },
+                                                "city": {
+                                                    "type": "string",
+                                                    "example": "São Paulo"
+                                                },
+                                                "state": {
+                                                    "type": "string",
+                                                    "example": "SP"
+                                                },
+                                                "zip_code": {
+                                                    "type": "string",
+                                                    "example": "01000-000"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/addresses/{id}": {
+            "get": {
+                "tags": [
+                    "Addresses"
+                ],
+                "summary": "Exibir detalhes de um endereço",
+                "operationId": "de6419a46a2f3639437add4f3cb76e5d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do endereço",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Endereço retornado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Endereço retornado com sucesso."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "street": {
+                                                    "type": "string",
+                                                    "example": "Rua das Flores"
+                                                },
+                                                "number": {
+                                                    "type": "string",
+                                                    "example": "123"
+                                                },
+                                                "neighborhood": {
+                                                    "type": "string",
+                                                    "example": "Centro"
+                                                },
+                                                "city": {
+                                                    "type": "string",
+                                                    "example": "São Paulo"
+                                                },
+                                                "state": {
+                                                    "type": "string",
+                                                    "example": "SP"
+                                                },
+                                                "zip_code": {
+                                                    "type": "string",
+                                                    "example": "01000-000"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Endereço não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Endereço não encontrado."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Addresses"
+                ],
+                "summary": "Atualizar um endereço existente",
+                "operationId": "2f078db19c8d7e5a374faa4b048e4c45",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do endereço",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "street": {
+                                        "type": "string",
+                                        "example": "Rua das Flores"
+                                    },
+                                    "number": {
+                                        "type": "string",
+                                        "example": "123"
+                                    },
+                                    "complement": {
+                                        "type": "string",
+                                        "example": "Apto 101"
+                                    },
+                                    "neighborhood": {
+                                        "type": "string",
+                                        "example": "Centro"
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "example": "São Paulo"
+                                    },
+                                    "state": {
+                                        "type": "string",
+                                        "example": "SP"
+                                    },
+                                    "zip_code": {
+                                        "type": "string",
+                                        "example": "01000-000"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Endereço atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Endereço atualizado com sucesso."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "street": {
+                                                    "type": "string",
+                                                    "example": "Rua das Flores"
+                                                },
+                                                "number": {
+                                                    "type": "string",
+                                                    "example": "123"
+                                                },
+                                                "neighborhood": {
+                                                    "type": "string",
+                                                    "example": "Centro"
+                                                },
+                                                "city": {
+                                                    "type": "string",
+                                                    "example": "São Paulo"
+                                                },
+                                                "state": {
+                                                    "type": "string",
+                                                    "example": "SP"
+                                                },
+                                                "zip_code": {
+                                                    "type": "string",
+                                                    "example": "01000-000"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Addresses"
+                ],
+                "summary": "Excluir um endereço existente",
+                "operationId": "3380f49103f9fb0f4a126d324894a33a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do endereço",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Endereço excluído com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Endereço excluído com sucesso."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Endereço não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Endereço não encontrado."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Autenticar um usuário",
+                "operationId": "8dcb70df1020986038d098cc08d05dae",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "user@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário autenticado com sucesso."
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "1|abc123..."
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "user@example.com"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Credenciais inválidas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "As credenciais fornecidas estão incorretas."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Registrar um novo usuário",
+                "operationId": "d764dd091cc4494ae0baf360b03319f3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "profile_id",
+                                    "phone",
+                                    "blood_type",
+                                    "address"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    },
+                                    "profile_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "62999999999"
+                                    },
+                                    "blood_type": {
+                                        "type": "string",
+                                        "example": "O+"
+                                    },
+                                    "address": {
+                                        "required": [
+                                            "street",
+                                            "neighborhood",
+                                            "city",
+                                            "state",
+                                            "zip_code"
+                                        ],
+                                        "properties": {
+                                            "street": {
+                                                "type": "string",
+                                                "example": "Rua das Flores"
+                                            },
+                                            "number": {
+                                                "type": "string",
+                                                "example": "123"
+                                            },
+                                            "complement": {
+                                                "type": "string",
+                                                "example": "Apto 101"
+                                            },
+                                            "neighborhood": {
+                                                "type": "string",
+                                                "example": "Centro"
+                                            },
+                                            "city": {
+                                                "type": "string",
+                                                "example": "São Paulo"
+                                            },
+                                            "state": {
+                                                "type": "string",
+                                                "example": "SP"
+                                            },
+                                            "zip_code": {
+                                                "type": "string",
+                                                "example": "01000-000"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário registrado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário criado com sucesso."
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "john@example.com"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Dados inválidos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erro de validação"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "email": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "O campo e-mail é obrigatório."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Fazer logout do usuário",
+                "operationId": "69281b12abb272c76871f19cb17ca563",
+                "responses": {
+                    "200": {
+                        "description": "Logout realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logout realizado com sucesso."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/hospitals": {
+            "get": {
+                "tags": [
+                    "Hospitais"
+                ],
+                "summary": "Listar todos os hospitais",
+                "operationId": "889788c9e18d5bd13d644bc4b47ddd4c",
+                "responses": {
+                    "200": {
+                        "description": "Lista de hospitais retornada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Hospitais listados com sucesso."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "example": {
+                                                    "id": 1,
+                                                    "name": "Hospital Central",
+                                                    "phone": "123456789",
+                                                    "email": "hospital@exemplo.com"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Hospitais"
+                ],
+                "summary": "Criar um novo hospital",
+                "operationId": "518058ff6e55c221412b97eaaaa0d435",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "address_id"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Hospital Central"
+                                    },
+                                    "registration_number": {
+                                        "type": "string",
+                                        "example": "12345"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "123456789"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "hospital@exemplo.com"
+                                    },
+                                    "address_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Hospital criado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Hospital criado com sucesso."
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": 1,
+                                                "name": "Hospital Central",
+                                                "phone": "123456789",
+                                                "email": "hospital@exemplo.com"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro de validação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Os dados fornecidos são inválidos."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/hospitals/{id}": {
+            "get": {
+                "tags": [
+                    "Hospitais"
+                ],
+                "summary": "Obter um hospital pelo ID",
+                "operationId": "260d5564f2eb38a979befccea51ec04d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do hospital",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Hospital retornado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Hospital obtido com sucesso."
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": 1,
+                                                "name": "Hospital Central",
+                                                "phone": "123456789",
+                                                "email": "hospital@exemplo.com"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Hospital não encontrado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Hospital não encontrado."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Hospitais"
+                ],
+                "summary": "Atualizar um hospital existente",
+                "operationId": "13c8dd284bf7c9052b265b898128e7ae",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do hospital",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Hospital Atualizado"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "987654321"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "novoemail@exemplo.com"
+                                    },
+                                    "address_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Hospital atualizado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Hospital atualizado com sucesso."
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": 1,
+                                                "name": "Hospital Atualizado",
+                                                "phone": "987654321",
+                                                "email": "novoemail@exemplo.com"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Hospitais"
+                ],
+                "summary": "Excluir um hospital",
+                "operationId": "658f97948f4903c47b753f4159367967",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do hospital",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Hospital excluído com sucesso."
+                    },
+                    "404": {
+                        "description": "Hospital não encontrado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Hospital não encontrado."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/organs": {
+            "get": {
+                "tags": [
+                    "Órgãos"
+                ],
+                "summary": "Listar todos os órgãos",
+                "operationId": "c4bd32fce6c92d05f87d336dc950aabc",
+                "responses": {
+                    "200": {
+                        "description": "Lista de órgãos retornada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Órgãos listados com sucesso."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "example": {
+                                                    "id": 1,
+                                                    "organ_type": "Coração",
+                                                    "status": "Available",
+                                                    "expiration_date": "2024-12-31",
+                                                    "distance_limit": 300,
+                                                    "hospital_id": 1
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Órgãos"
+                ],
+                "summary": "Registrar um novo órgão",
+                "operationId": "f6317918726b853cb18755ba5df9678f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "organ_type_id",
+                                    "status",
+                                    "hospital_id"
+                                ],
+                                "properties": {
+                                    "organ_type_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "Pending"
+                                    },
+                                    "hospital_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "donor_id": {
+                                        "type": "integer",
+                                        "example": 10
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Órgão registrado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Órgão registrado com sucesso."
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": 1,
+                                                "organ_type": "Coração",
+                                                "status": "Pending"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/organs/kpi": {
+            "get": {
+                "tags": [
+                    "Órgãos"
+                ],
+                "summary": "Obter estatísticas sobre órgãos",
+                "operationId": "15634943c6f7773fa1f0e2065f397de3",
+                "responses": {
+                    "200": {
+                        "description": "KPIs retornadas com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "KPIs obtidas com sucesso."
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "total_organs": 120,
+                                                "available_organs": 50,
+                                                "expired_organs": 20,
+                                                "in_use": 30,
+                                                "donated_organs": 20
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/organs/available": {
+            "get": {
+                "tags": [
+                    "Órgãos"
+                ],
+                "summary": "Listar órgãos disponíveis",
+                "operationId": "0b379a51963b4ea78fdd5f73d9d7c25e",
+                "responses": {
+                    "200": {
+                        "description": "Órgãos disponíveis listados com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Órgãos disponíveis listados com sucesso."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "example": {
+                                                    "id": 1,
+                                                    "organ_type": "Coração",
+                                                    "status": "Available",
+                                                    "expiration_date": "2024-12-31",
+                                                    "hospital_id": 1
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/organs/donors": {
+            "get": {
+                "tags": [
+                    "Órgãos"
+                ],
+                "summary": "Listar todos os doadores registrados",
+                "operationId": "5d9aad67089c4dd8f93e1ca13872e55c",
+                "responses": {
+                    "200": {
+                        "description": "Doadores listados com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Doadores listados com sucesso."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "example": {
+                                                    "id": 1,
+                                                    "name": "João",
+                                                    "cpf": "12345678901",
+                                                    "organs": ""
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/organs/waiting-list": {
+            "get": {
+                "tags": [
+                    "Órgãos"
+                ],
+                "summary": "Listar todos os usuários na fila de espera por órgãos",
+                "operationId": "8fca9832bfc857e672120c11662effc8",
+                "responses": {
+                    "200": {
+                        "description": "Lista de espera retornada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Lista de espera retornada com sucesso."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "example": {
+                                                    "id": 1,
+                                                    "name": "Maria",
+                                                    "organ_requested": "Rim",
+                                                    "status": "Waiting"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/organ-types": {
+            "get": {
+                "tags": [
+                    "Tipos de Órgãos"
+                ],
+                "summary": "Listar todos os tipos de órgãos",
+                "operationId": "0121716b7375e6d4a85de8defa56bbaf",
+                "responses": {
+                    "200": {
+                        "description": "Lista de tipos de órgãos retornada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Tipos de órgãos listados com sucesso."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "example": {
+                                                    "id": 1,
+                                                    "name": "Coração",
+                                                    "description": "Órgão vital",
+                                                    "default_expiration_days": 7,
+                                                    "default_distance_limit": 500,
+                                                    "compatibility_criteria": "",
+                                                    "is_post_mortem": true
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Tipos de Órgãos"
+                ],
+                "summary": "Criar um novo tipo de órgão",
+                "operationId": "4625255b68dbb31632ab47ecf621a31f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "default_expiration_days",
+                                    "default_distance_limit"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Coração"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Órgão vital"
+                                    },
+                                    "default_expiration_days": {
+                                        "type": "integer",
+                                        "example": 7
+                                    },
+                                    "default_distance_limit": {
+                                        "type": "integer",
+                                        "example": 500
+                                    },
+                                    "compatibility_criteria": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "is_post_mortem": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Tipo de órgão criado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Tipo de órgão criado com sucesso."
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": 1,
+                                                "name": "Coração",
+                                                "description": "Órgão vital",
+                                                "default_expiration_days": 7,
+                                                "default_distance_limit": 500,
+                                                "compatibility_criteria": "",
+                                                "is_post_mortem": true
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/organ-types/{id}": {
+            "get": {
+                "tags": [
+                    "Tipos de Órgãos"
+                ],
+                "summary": "Obter detalhes de um tipo de órgão",
+                "operationId": "3d99f9873b4848400f497d994f4dcd63",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do tipo de órgão",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tipo de órgão retornado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Tipo de órgão obtido com sucesso."
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": 1,
+                                                "name": "Coração",
+                                                "description": "Órgão vital",
+                                                "default_expiration_days": 7,
+                                                "default_distance_limit": 500,
+                                                "compatibility_criteria": "",
+                                                "is_post_mortem": true
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tipo de órgão não encontrado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Tipo de órgão não encontrado."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Tipos de Órgãos"
+                ],
+                "summary": "Atualizar um tipo de órgão existente",
+                "operationId": "3ccee6e352abf3bba12a5e6909794746",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do tipo de órgão",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Coração Atualizado"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Órgão vital atualizado"
+                                    },
+                                    "default_expiration_days": {
+                                        "type": "integer",
+                                        "example": 8
+                                    },
+                                    "default_distance_limit": {
+                                        "type": "integer",
+                                        "example": 600
+                                    },
+                                    "compatibility_criteria": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "is_post_mortem": {
+                                        "type": "boolean",
+                                        "example": false
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tipo de órgão atualizado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Tipo de órgão atualizado com sucesso."
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": 1,
+                                                "name": "Coração Atualizado",
+                                                "description": "Órgão vital atualizado",
+                                                "default_expiration_days": 8,
+                                                "default_distance_limit": 600,
+                                                "compatibility_criteria": "",
+                                                "is_post_mortem": false
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Lista todos os usuários",
+                "operationId": "c457726701591d1183b53aa71fc13441",
+                "responses": {
+                    "200": {
+                        "description": "Lista de usuários retornada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "John Doe"
+                                            },
+                                            "email": {
+                                                "type": "string",
+                                                "example": "john@example.com"
+                                            },
+                                            "cpf": {
+                                                "type": "string",
+                                                "example": "12345678901"
+                                            },
+                                            "phone": {
+                                                "type": "string",
+                                                "example": "+55 11 99999-9999"
+                                            },
+                                            "blood_type": {
+                                                "type": "string",
+                                                "example": "O+"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Cria um novo usuário",
+                "operationId": "592819a0265360b2014512d6dbfaf0e7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "cpf",
+                                    "birth_date",
+                                    "gender",
+                                    "phone",
+                                    "blood_type",
+                                    "address_id"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    },
+                                    "cpf": {
+                                        "type": "string",
+                                        "example": "12345678901"
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-05-01"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "example": "male"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "+55 11 99999-9999"
+                                    },
+                                    "blood_type": {
+                                        "type": "string",
+                                        "example": "O+"
+                                    },
+                                    "address_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário criado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "John Doe"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "john@example.com"
+                                        },
+                                        "cpf": {
+                                            "type": "string",
+                                            "example": "12345678901"
+                                        },
+                                        "phone": {
+                                            "type": "string",
+                                            "example": "+55 11 99999-9999"
+                                        },
+                                        "blood_type": {
+                                            "type": "string",
+                                            "example": "O+"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Obter detalhes de um usuário",
+                "operationId": "36a33ff774d5cba33c039dec2c3e0287",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes do usuário retornados com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "John Doe"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "john@example.com"
+                                        },
+                                        "cpf": {
+                                            "type": "string",
+                                            "example": "12345678901"
+                                        },
+                                        "phone": {
+                                            "type": "string",
+                                            "example": "+55 11 99999-9999"
+                                        },
+                                        "blood_type": {
+                                            "type": "string",
+                                            "example": "O+"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Atualiza informações de um usuário",
+                "operationId": "b9091397c8b25f12c6adb74be6ce3a5a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "+55 11 99999-9999"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário atualizado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "John Doe"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "john@example.com"
+                                        },
+                                        "phone": {
+                                            "type": "string",
+                                            "example": "+55 11 99999-9999"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Exclui um usuário",
+                "operationId": "fa56cffde745d3f152f95cbacd936c0b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Usuário excluído com sucesso."
+                    }
+                }
+            }
+        },
+        "/api/users/{id}/organs": {
+            "get": {
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Lista órgãos associados ao usuário",
+                "operationId": "49247ca84cb4138ce3f2ca7bd7537029",
+                "responses": {
+                    "200": {
+                        "description": "Órgãos retornados com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "type": {
+                                                "type": "string",
+                                                "example": "Coração"
+                                            },
+                                            "status": {
+                                                "type": "string",
+                                                "example": "Pending"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Seleciona órgãos para doar ou receber",
+                "operationId": "52325b7177e11f341bfaeeacfe6318ff",
+                "responses": {
+                    "200": {
+                        "description": "Órgãos atualizados com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Órgãos atualizados com sucesso."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Addresses",
+            "description": "Addresses"
+        },
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Hospitais",
+            "description": "Hospitais"
+        },
+        {
+            "name": "Órgãos",
+            "description": "Órgãos"
+        },
+        {
+            "name": "Tipos de Órgãos",
+            "description": "Tipos de Órgãos"
+        },
+        {
+            "name": "Usuários",
+            "description": "Usuários"
+        }
+    ]
+}
