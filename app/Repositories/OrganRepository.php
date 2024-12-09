@@ -13,6 +13,18 @@ class OrganRepository extends BaseRepository implements OrganRepositoryInterface
         parent::__construct($model);
     }
 
+
+    public function getAll()
+    {
+
+        return $this->model->with(['type', 'hospital', 'donor', 'recipient'])->get();
+    }
+
+    public function getById(int $id)
+    {
+        return $this->model->with(['type', 'hospital', 'donor', 'recipient'])->find($id);
+    }
+
     /**
      * Retorna todos os órgãos disponíveis para doação.
      */
@@ -77,5 +89,13 @@ class OrganRepository extends BaseRepository implements OrganRepositoryInterface
             ->orWhere('recipient_id', $userId)
             ->with('type')
             ->get();
+    }
+
+    public function deleteByUserId(int $userId)
+    {
+        return $this->model
+            ->where('donor_id', $userId)
+            ->orWhere('recipient_id', $userId)
+            ->delete();
     }
 }

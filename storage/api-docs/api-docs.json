@@ -496,7 +496,7 @@
                                             "type": "string",
                                             "example": "Usuário autenticado com sucesso."
                                         },
-                                        "token": {
+                                        "acess_token": {
                                             "type": "string",
                                             "example": "1|abc123..."
                                         },
@@ -1100,16 +1100,73 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "type": "object",
-                                                "example": {
-                                                    "id": 1,
-                                                    "organ_type": "Coração",
-                                                    "status": "Available",
-                                                    "expiration_date": "2024-12-31",
-                                                    "distance_limit": 300,
-                                                    "hospital_id": 1
-                                                }
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "organ_type": {
+                                                        "type": "string",
+                                                        "example": "Coração"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "Available"
+                                                    },
+                                                    "expiration_date": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-12-31"
+                                                    },
+                                                    "distance_limit": {
+                                                        "type": "integer",
+                                                        "example": 300
+                                                    },
+                                                    "hospital_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "donor_id": {
+                                                        "type": "integer",
+                                                        "example": 10
+                                                    },
+                                                    "recipient_id": {
+                                                        "type": "integer",
+                                                        "example": 15
+                                                    },
+                                                    "matched_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-12-01T10:00:00Z"
+                                                    },
+                                                    "completed_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-12-02T15:00:00Z"
+                                                    }
+                                                },
+                                                "type": "object"
                                             }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição inválida.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erro ao processar a solicitação."
                                         }
                                     },
                                     "type": "object"
@@ -1131,18 +1188,29 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "organ_type_id",
+                                    "organ_type",
                                     "status",
+                                    "expiration_date",
+                                    "distance_limit",
                                     "hospital_id"
                                 ],
                                 "properties": {
-                                    "organ_type_id": {
-                                        "type": "integer",
-                                        "example": 1
+                                    "organ_type": {
+                                        "type": "string",
+                                        "example": "Coração"
                                     },
                                     "status": {
                                         "type": "string",
-                                        "example": "Pending"
+                                        "example": "Available"
+                                    },
+                                    "expiration_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-12-31"
+                                    },
+                                    "distance_limit": {
+                                        "type": "integer",
+                                        "example": 300
                                     },
                                     "hospital_id": {
                                         "type": "integer",
@@ -1151,6 +1219,10 @@
                                     "donor_id": {
                                         "type": "integer",
                                         "example": 10
+                                    },
+                                    "recipient_id": {
+                                        "type": "integer",
+                                        "example": 15
                                     }
                                 },
                                 "type": "object"
@@ -1160,7 +1232,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Órgão registrado com sucesso.",
+                        "description": "Órgão criado com sucesso.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1174,12 +1246,72 @@
                                             "example": "Órgão registrado com sucesso."
                                         },
                                         "data": {
-                                            "type": "object",
-                                            "example": {
-                                                "id": 1,
-                                                "organ_type": "Coração",
-                                                "status": "Pending"
-                                            }
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "organ_type": {
+                                                    "type": "string",
+                                                    "example": "Coração"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "Available"
+                                                },
+                                                "expiration_date": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2024-12-31"
+                                                },
+                                                "distance_limit": {
+                                                    "type": "integer",
+                                                    "example": 300
+                                                },
+                                                "hospital_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "donor_id": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "recipient_id": {
+                                                    "type": "integer",
+                                                    "example": 15
+                                                },
+                                                "matched_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-01T10:00:00Z"
+                                                },
+                                                "completed_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-02T15:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro de validação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erro ao processar a solicitação."
                                         }
                                     },
                                     "type": "object"
@@ -1195,7 +1327,7 @@
                 "tags": [
                     "Órgãos"
                 ],
-                "summary": "Obter estatísticas sobre órgãos",
+                "summary": "Obter estatísticas sobre os órgãos",
                 "operationId": "15634943c6f7773fa1f0e2065f397de3",
                 "responses": {
                     "200": {
@@ -1213,14 +1345,29 @@
                                             "example": "KPIs obtidas com sucesso."
                                         },
                                         "data": {
-                                            "type": "object",
-                                            "example": {
-                                                "total_organs": 120,
-                                                "available_organs": 50,
-                                                "expired_organs": 20,
-                                                "in_use": 30,
-                                                "donated_organs": 20
-                                            }
+                                            "properties": {
+                                                "total_organs": {
+                                                    "type": "integer",
+                                                    "example": 120
+                                                },
+                                                "available_organs": {
+                                                    "type": "integer",
+                                                    "example": 50
+                                                },
+                                                "expired_organs": {
+                                                    "type": "integer",
+                                                    "example": 20
+                                                },
+                                                "in_use": {
+                                                    "type": "integer",
+                                                    "example": 30
+                                                },
+                                                "donated_organs": {
+                                                    "type": "integer",
+                                                    "example": 20
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -1256,14 +1403,52 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "type": "object",
-                                                "example": {
-                                                    "id": 1,
-                                                    "organ_type": "Coração",
-                                                    "status": "Available",
-                                                    "expiration_date": "2024-12-31",
-                                                    "hospital_id": 1
-                                                }
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "organ_type": {
+                                                        "type": "string",
+                                                        "example": "Coração"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "Available"
+                                                    },
+                                                    "expiration_date": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-12-31"
+                                                    },
+                                                    "distance_limit": {
+                                                        "type": "integer",
+                                                        "example": 300
+                                                    },
+                                                    "hospital_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "donor_id": {
+                                                        "type": "integer",
+                                                        "example": 10
+                                                    },
+                                                    "recipient_id": {
+                                                        "type": "integer",
+                                                        "example": 15
+                                                    },
+                                                    "matched_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-12-01T10:00:00Z"
+                                                    },
+                                                    "completed_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-12-02T15:00:00Z"
+                                                    }
+                                                },
+                                                "type": "object"
                                             }
                                         }
                                     },
@@ -1300,13 +1485,50 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "type": "object",
-                                                "example": {
-                                                    "id": 1,
-                                                    "name": "João",
-                                                    "cpf": "12345678901",
-                                                    "organs": ""
-                                                }
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "João"
+                                                    },
+                                                    "cpf": {
+                                                        "type": "string",
+                                                        "example": "12345678901"
+                                                    },
+                                                    "organs": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": 10
+                                                                },
+                                                                "organ_type": {
+                                                                    "type": "string",
+                                                                    "example": "Coração"
+                                                                },
+                                                                "status": {
+                                                                    "type": "string",
+                                                                    "example": "Donated"
+                                                                },
+                                                                "expiration_date": {
+                                                                    "type": "string",
+                                                                    "format": "date",
+                                                                    "example": "2024-12-31"
+                                                                },
+                                                                "hospital_id": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
                                             }
                                         }
                                     },
@@ -1323,7 +1545,7 @@
                 "tags": [
                     "Órgãos"
                 ],
-                "summary": "Listar todos os usuários na fila de espera por órgãos",
+                "summary": "Listar usuários na fila de espera por órgãos",
                 "operationId": "8fca9832bfc857e672120c11662effc8",
                 "responses": {
                     "200": {
@@ -1343,13 +1565,25 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "type": "object",
-                                                "example": {
-                                                    "id": 1,
-                                                    "name": "Maria",
-                                                    "organ_requested": "Rim",
-                                                    "status": "Waiting"
-                                                }
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Maria"
+                                                    },
+                                                    "organ_requested": {
+                                                        "type": "string",
+                                                        "example": "Rim"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "Waiting"
+                                                    }
+                                                },
+                                                "type": "object"
                                             }
                                         }
                                     },
@@ -1990,31 +2224,6 @@
                                         },
                                         "type": "object"
                                     }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Usuários"
-                ],
-                "summary": "Seleciona órgãos para doar ou receber",
-                "operationId": "52325b7177e11f341bfaeeacfe6318ff",
-                "responses": {
-                    "200": {
-                        "description": "Órgãos atualizados com sucesso.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Órgãos atualizados com sucesso."
-                                        }
-                                    },
-                                    "type": "object"
                                 }
                             }
                         }

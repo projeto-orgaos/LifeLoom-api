@@ -16,4 +16,6 @@ interface OrganServiceInterface
     public function getKPIs();
 
     public function getByUserId(int $userId);
+
+    public function deleteByUserId(int $userId);
 }

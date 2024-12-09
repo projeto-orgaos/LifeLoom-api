@@ -74,7 +74,7 @@ class AuthController extends Controller
 
         // Obtém o usuário autenticado
         $user = Auth::user();
-        $user_complete = $this->userService->getFullById($user->id);
+        $user_complete = $this->userService->getById($user->id);
 
         // Gera o token de acesso
         $token = $user->createToken('auth_token')->accessToken;
@@ -82,7 +82,7 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Usuário autenticado com sucesso.',
-            'acess_token' => $token,
+            'access_token' => $token,
             'user' => $user_complete,
         ], 200);
     }
@@ -147,7 +147,8 @@ class AuthController extends Controller
      */
     public function register(CreateUserRequest $request)
     {
-        $user = $this->userService->create($request);
+        $data = $request->validated();
+        $user = $this->userService->create($data);
         return response()->json([
             'status' => 'success',
             'message' => 'Usuário criado com sucesso.',

@@ -5,10 +5,11 @@ namespace App\Services;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Models\Organ;
 use App\Repositories\Contracts\UserRepositoryInterface;
-use App\Repositories\Contracts\OrganRepositoryInterface;
 use App\Services\Contracts\AddressServiceInterface;
 use App\Services\Contracts\OrganServiceInterface;
+use App\Services\Contracts\OrganTypeServiceInterface;
 use App\Services\Contracts\UserServiceInterface;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserService implements UserServiceInterface
@@ -18,14 +19,19 @@ class UserService implements UserServiceInterface
 
     protected $addressService;
 
+    protected $organTypeService;
+
     public function __construct(
-        UserRepositoryInterface $userRepository,
-        OrganServiceInterface $organService,
-        AddressServiceInterface $addressService
-    ) {
+        UserRepositoryInterface   $userRepository,
+        OrganServiceInterface     $organService,
+        AddressServiceInterface   $addressService,
+        OrganTypeServiceInterface $organTypeService
+    )
+    {
         $this->userRepository = $userRepository;
         $this->organService = $organService;
         $this->addressService = $addressService;
+        $this->organTypeService = $organTypeService;
     }
 
     /**
@@ -45,11 +51,14 @@ class UserService implements UserServiceInterface
     }
 
     /**
+     * Retorna um usuário pelo ID.
+     */
+
+    /**
      * Cria um novo usuário.
      */
-    public function create(CreateUserRequest $userRequest)
+    public function create(array $data)
     {
-        $data = $userRequest->validated();
 
         // Verifica se o endereço foi fornecido e usa o AddressService para criar
         if (isset($data['address'])) {
@@ -71,7 +80,6 @@ class UserService implements UserServiceInterface
         // Cria o usuário utilizando o repositório
         return $this->userRepository->save($data);
     }
-
 
 
     /**
@@ -107,39 +115,75 @@ class UserService implements UserServiceInterface
     /**
      * Atualiza os órgãos associados a um usuário.
      */
-    public function updateOrgans(int $userId, array $organIds, string $action)
+    public function updateOrgans(int $userId, array $organIds)
     {
-        $user = $this->getById($userId);
+        DB::beginTransaction();
 
-        if ($action === 'add') {
+        try {
+            // Obtém o usuário com as relações completas
+            $user = $this->getById($userId);
+
+            if (!$user) {
+                throw new \InvalidArgumentException("Usuário com ID $userId não encontrado.");
+            }
+
+            // Verifica o perfil do usuário (Doador ou Receptor)
+            $isDonor = $user->profile->description === 'Doador';
+            $isRecipient = $user->profile->description === 'Receptor';
+
+            if (!$isDonor && !$isRecipient) {
+                throw new \InvalidArgumentException("Usuário com ID $userId não é doador nem receptor.");
+            }
+
+            // Remove os órgãos existentes associados ao usuário
+            $this->organService->deleteByUserId($userId);
+
+            // Adiciona os novos órgãos
             foreach ($organIds as $organTypeId) {
-                $this->organService->create([
-                    'organ_type_id' => $organTypeId,
-                    'status' => 'Pending',
-                    'donor_id' => $user->profile_id === 'Doador' ? $userId : null,
-                    'recipient_id' => $user->profile_id === 'Receptor' ? $userId : null,
-                ]);
-            }
-        } elseif ($action === 'remove') {
-            foreach ($organIds as $organId) {
-                $organ = $this->organService->getById($organId);
-                if (
-                    ($organ->donor_id === $userId && $user->profile_id === 'Doador') ||
-                    ($organ->recipient_id === $userId && $user->profile_id === 'Receptor')
-                ) {
-                    $this->organService->delete($organId);
+                // Verifica se o tipo de órgão existe
+                $organType = $this->organTypeService->getById($organTypeId);
+
+                if (!$organType) {
+                    throw new \InvalidArgumentException("Tipo de órgão com ID $organTypeId não encontrado.");
                 }
+
+                // Cria o órgão associado ao usuário
+                $organ = new Organ([
+                    'organ_type_id' => $organTypeId,
+                    'status' => $isDonor ? 'Pending' : 'Waiting',
+                    'donor_id' => $isDonor ? $userId : null,
+                    'recipient_id' => $isRecipient ? $userId : null,
+                    'expiration_date' => $isRecipient ? now()->addMinutes($organType->default_preservation_time_minutes) : null,
+                    'hospital_id' => null,
+                    'matched_at' => null,
+                    'completed_at' => null,
+                ]);
+
+                // Salva o órgão na base de dados
+                $this->organService->create($organ->toArray());
             }
+
+            // Confirma a transação
+            DB::commit();
+        } catch (\Exception $e) {
+            // Reverte a transação em caso de erro
+            DB::rollBack();
+
+            // Lança o erro para que possa ser tratado externamente
+            throw $e;
         }
     }
 
     /**
      * Retorna um usuário com todos os dados relacionados.
-     */
-    public function getFullById(int $id)
-    {
-        $user = $this->userRepository->getByIdWithProfile($id);
 
-        return $user;
+
+    /**
+     * Busca usuários por profile_id.
+     */
+    public function getUsersByProfile(?int $profileId)
+    {
+        return $this->userRepository->findByProfile($profileId);
     }
+
 }

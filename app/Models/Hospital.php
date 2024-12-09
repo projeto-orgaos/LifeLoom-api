@@ -43,11 +43,4 @@ class Hospital extends Model
         return $this->hasMany(Organ::class);
     }
 
-    /**
-     * Relação com UserOrgans para rastrear os órgãos associados a doadores/receptores neste hospital.
-     */
-    public function userOrgans()
-    {
-        return $this->hasMany(UserOrgan::class);
-    }
 }

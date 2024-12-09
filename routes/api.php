@@ -45,7 +45,8 @@ Route::prefix('users')->group(function () {
     Route::get('/{id}/organs', [UserController::class, 'listOrgans'])->name('users.listOrgans');
 
     // Update organs for a user (select for donation/receipt)
-    Route::put('/{id}/organs', [UserController::class, 'updateOrgans'])->name('users.updateOrgans');
+    Route::put('/update-organs/{id}', [UserController::class, 'updateOrgans'])->name('users.updateOrgans');
+
 });
 
 // Rotas relacionadas a hospitais
@@ -75,7 +76,7 @@ Route::prefix('organs')->group(function () {
     Route::get('/available', [OrganController::class, 'available'])->name('organs.available');
 
     // Get organ statistics (KPIs)
-    Route::get('/kpi', [OrganController::class, 'kpi'])->name('organs.kpi');
+    Route::get('/kpi', [OrganController::class, 'kpi'])->name('kpi');
 
     // List donors
     Route::get('/donors', [OrganController::class, 'donors'])->name('organs.donors');

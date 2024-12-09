@@ -22,8 +22,7 @@ class CreateOrganTypeRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'default_expiration_days' => 'required|integer|min:1',
-            'default_distance_limit' => 'required|integer|min:1',
+            'default_preservation_time_minutes' => 'required|integer|min:1',
             'compatibility_criteria' => 'nullable|array',
             'is_post_mortem' => 'required|boolean',
         ];
@@ -36,10 +35,8 @@ class CreateOrganTypeRequest extends FormRequest
     {
         return [
             'name.required' => 'O nome do tipo de órgão é obrigatório.',
-            'default_expiration_days.required' => 'A validade padrão do órgão é obrigatória.',
-            'default_expiration_days.integer' => 'A validade deve ser um número inteiro.',
-            'default_distance_limit.required' => 'A distância máxima padrão é obrigatória.',
-            'default_distance_limit.integer' => 'A distância máxima deve ser um número inteiro.',
+            'default_preservation_time_minutes.required' => 'O tempo padrão de preservação é obrigatório.',
+            'default_preservation_time_minutes.integer' => 'O tempo de preservação deve ser um número inteiro.',
             'is_post_mortem.required' => 'É necessário informar se o órgão é post-mortem.',
         ];
     }

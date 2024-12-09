@@ -214,4 +214,13 @@ class OrganTypeController extends Controller
         ]);
     }
 
+
+    public function destroy(int $id): JsonResponse
+    {
+        $this->service->delete($id);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Tipo de órgão excluído com sucesso.',
+        ]);
+    }
 }

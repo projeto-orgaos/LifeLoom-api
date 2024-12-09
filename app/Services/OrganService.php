@@ -2,11 +2,9 @@
 
 namespace App\Services;
 
-use App\Http\Requests\Organ\CreateOrganRequest;
 use App\Http\Requests\Organ\UpdateOrganRequest;
 use App\Repositories\Contracts\OrganRepositoryInterface;
 use App\Services\Contracts\OrganServiceInterface;
-use Illuminate\Validation\ValidationException;
 
 class OrganService implements OrganServiceInterface
 {
@@ -38,19 +36,8 @@ class OrganService implements OrganServiceInterface
      */
     public function create(array $data)
     {
-        $request = new CreateOrganRequest($data);
-        $validated = $request->all();
-
-        // Popula valores padrão, se necessário, do tipo de órgão
-        if (!isset($validated['expiration_date'])) {
-            $validated['expiration_date'] = now()->addDays($validated['type']->default_expiration_days);
-        }
-
-        if (!isset($validated['distance_limit'])) {
-            $validated['distance_limit'] = $validated['type']->default_distance_limit;
-        }
-
-        return $this->repository->create($validated);
+        // Salvar no repositório
+        return $this->repository->save($data);
     }
 
     /**
@@ -117,5 +104,10 @@ class OrganService implements OrganServiceInterface
     public function getByUserId(int $userId)
     {
         return $this->repository->getByUserId($userId);
+    }
+
+    public function deleteByUserId(int $userId)
+    {
+        return $this->repository->deleteByUserId($userId);
     }
 }

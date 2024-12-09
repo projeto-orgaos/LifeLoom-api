@@ -7,6 +7,7 @@ use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\OrganSelectionRequest;
 use App\Services\Contracts\UserServiceInterface;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -39,10 +40,19 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function index(): JsonResponse
+    /**
+     * Lista usuários filtrados pelo profile_id.
+     */
+    public function index(Request $request)
     {
-        $users = $this->userService->getAll();
-        return response()->json(['status' => 'success', 'data' => $users]);
+        $profileId = $request->query('profile_id'); // Obtém o profile_id do filtro
+        $users = $this->userService->getUsersByProfile($profileId);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Usuários listados com sucesso.',
+            'data' => $users,
+        ]);
     }
 
     /**
@@ -202,6 +212,8 @@ class UserController extends Controller
      */
     public function listOrgans(int $id): JsonResponse
     {
+
+
         $organs = $this->userService->getOrgans($id);
         return response()->json(['status' => 'success', 'data' => $organs]);
     }
@@ -211,7 +223,7 @@ class UserController extends Controller
     {
         //Get data from request without validation
         $data = $request->all();
-        $this->userService->updateOrgans($id, $data['organ_ids'], $data['action']);
+        $this->userService->updateOrgans($id, $data['organ_ids']);
         return response()->json(['status' => 'success', 'message' => 'Órgãos atualizados com sucesso.']);
     }
 }

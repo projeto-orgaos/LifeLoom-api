@@ -8,11 +8,12 @@ interface UserServiceInterface
 {
     public function getAll();
     public function getById(int $id);
-    public function create(CreateUserRequest $data);
+    public function create(array $data);
     public function update(int $id, array $data);
     public function delete(int $id);
     public function getOrgans(int $userId);
-    public function updateOrgans(int $userId, array $organIds, string $action);
+    public function updateOrgans(int $userId, array $organIds);
 
-    public function getFullById(int $id);
+
+    public function getUsersByProfile(?int $profileId);
 }

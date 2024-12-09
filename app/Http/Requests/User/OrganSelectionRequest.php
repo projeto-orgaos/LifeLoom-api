@@ -16,7 +16,6 @@ class OrganSelectionRequest extends FormRequest
         return [
             'organ_ids' => 'required|array|min:1',
             'organ_ids.*' => 'integer|exists:organ_types,id', // Alterado para validar na tabela correta
-            'action' => 'required|string|in:add,remove',
         ];
     }
 
@@ -26,9 +25,7 @@ class OrganSelectionRequest extends FormRequest
             'organ_ids.required' => 'É necessário informar pelo menos um órgão.',
             'organ_ids.array' => 'Os órgãos devem ser enviados como uma lista.',
             'organ_ids.*.exists' => 'Um ou mais IDs de órgão fornecidos são inválidos.',
-            'action.required' => 'A ação é obrigatória.',
-            'action.in' => 'A ação deve ser add (adicionar) ou remove (remover).',
         ];
     }
-    
+
 }

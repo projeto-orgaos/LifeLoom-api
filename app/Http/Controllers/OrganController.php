@@ -31,8 +31,29 @@ class OrganController extends Controller
      *             @OA\Property(
      *                 property="data",
      *                 type="array",
-     *                 @OA\Items(type="object", example={"id": 1, "organ_type": "Coração", "status": "Available", "expiration_date": "2024-12-31", "distance_limit": 300, "hospital_id": 1})
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(property="id", type="integer", example=1),
+     *                     @OA\Property(property="organ_type", type="string", example="Coração"),
+     *                     @OA\Property(property="status", type="string", example="Available"),
+     *                     @OA\Property(property="expiration_date", type="string", format="date", example="2024-12-31"),
+     *                     @OA\Property(property="distance_limit", type="integer", example=300),
+     *                     @OA\Property(property="hospital_id", type="integer", example=1),
+     *                     @OA\Property(property="donor_id", type="integer", example=10),
+     *                     @OA\Property(property="recipient_id", type="integer", example=15),
+     *                     @OA\Property(property="matched_at", type="string", format="date-time", example="2024-12-01T10:00:00Z"),
+     *                     @OA\Property(property="completed_at", type="string", format="date-time", example="2024-12-02T15:00:00Z")
+     *                 )
      *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Requisição inválida.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Erro ao processar a solicitação.")
      *         )
      *     )
      * )
@@ -50,7 +71,7 @@ class OrganController extends Controller
     /**
      * @OA\Get(
      *     path="/api/organs/kpi",
-     *     summary="Obter estatísticas sobre órgãos",
+     *     summary="Obter estatísticas sobre os órgãos",
      *     tags={"Órgãos"},
      *     @OA\Response(
      *         response=200,
@@ -59,13 +80,15 @@ class OrganController extends Controller
      *             type="object",
      *             @OA\Property(property="status", type="string", example="success"),
      *             @OA\Property(property="message", type="string", example="KPIs obtidas com sucesso."),
-     *             @OA\Property(property="data", type="object", example={
-     *                 "total_organs": 120,
-     *                 "available_organs": 50,
-     *                 "expired_organs": 20,
-     *                 "in_use": 30,
-     *                 "donated_organs": 20
-     *             })
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 @OA\Property(property="total_organs", type="integer", example=120),
+     *                 @OA\Property(property="available_organs", type="integer", example=50),
+     *                 @OA\Property(property="expired_organs", type="integer", example=20),
+     *                 @OA\Property(property="in_use", type="integer", example=30),
+     *                 @OA\Property(property="donated_organs", type="integer", example=20)
+     *             )
      *         )
      *     )
      * )
@@ -89,21 +112,44 @@ class OrganController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             type="object",
-     *             required={"organ_type_id", "status", "hospital_id"},
-     *             @OA\Property(property="organ_type_id", type="integer", example=1),
-     *             @OA\Property(property="status", type="string", example="Pending"),
+     *             required={"organ_type", "status", "expiration_date", "distance_limit", "hospital_id"},
+     *             @OA\Property(property="organ_type", type="string", example="Coração"),
+     *             @OA\Property(property="status", type="string", example="Available"),
+     *             @OA\Property(property="expiration_date", type="string", format="date", example="2024-12-31"),
+     *             @OA\Property(property="distance_limit", type="integer", example=300),
      *             @OA\Property(property="hospital_id", type="integer", example=1),
-     *             @OA\Property(property="donor_id", type="integer", example=10)
+     *             @OA\Property(property="donor_id", type="integer", example=10),
+     *             @OA\Property(property="recipient_id", type="integer", example=15)
      *         )
      *     ),
      *     @OA\Response(
      *         response=201,
-     *         description="Órgão registrado com sucesso.",
+     *         description="Órgão criado com sucesso.",
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="status", type="string", example="success"),
      *             @OA\Property(property="message", type="string", example="Órgão registrado com sucesso."),
-     *             @OA\Property(property="data", type="object", example={"id": 1, "organ_type": "Coração", "status": "Pending"})
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="organ_type", type="string", example="Coração"),
+     *                 @OA\Property(property="status", type="string", example="Available"),
+     *                 @OA\Property(property="expiration_date", type="string", format="date", example="2024-12-31"),
+     *                 @OA\Property(property="distance_limit", type="integer", example=300),
+     *                 @OA\Property(property="hospital_id", type="integer", example=1),
+     *                 @OA\Property(property="donor_id", type="integer", example=10),
+     *                 @OA\Property(property="recipient_id", type="integer", example=15),
+     *                 @OA\Property(property="matched_at", type="string", format="date-time", example="2024-12-01T10:00:00Z"),
+     *                 @OA\Property(property="completed_at", type="string", format="date-time", example="2024-12-02T15:00:00Z")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Erro de validação.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Erro ao processar a solicitação.")
      *         )
      *     )
      * )
@@ -134,7 +180,19 @@ class OrganController extends Controller
      *             @OA\Property(
      *                 property="data",
      *                 type="array",
-     *                 @OA\Items(type="object", example={"id": 1, "organ_type": "Coração", "status": "Available", "expiration_date": "2024-12-31", "hospital_id": 1})
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(property="id", type="integer", example=1),
+     *                     @OA\Property(property="organ_type", type="string", example="Coração"),
+     *                     @OA\Property(property="status", type="string", example="Available"),
+     *                     @OA\Property(property="expiration_date", type="string", format="date", example="2024-12-31"),
+     *                     @OA\Property(property="distance_limit", type="integer", example=300),
+     *                     @OA\Property(property="hospital_id", type="integer", example=1),
+     *                     @OA\Property(property="donor_id", type="integer", example=10),
+     *                     @OA\Property(property="recipient_id", type="integer", example=15),
+     *                     @OA\Property(property="matched_at", type="string", format="date-time", example="2024-12-01T10:00:00Z"),
+     *                     @OA\Property(property="completed_at", type="string", format="date-time", example="2024-12-02T15:00:00Z")
+     *                 )
      *             )
      *         )
      *     )
@@ -167,12 +225,21 @@ class OrganController extends Controller
      *                 type="array",
      *                 @OA\Items(
      *                     type="object",
-     *                     example={
-     *                         "id": 1,
-     *                         "name": "João",
-     *                         "cpf": "12345678901",
-     *                         "organs": ""
-     *                     }
+     *                     @OA\Property(property="id", type="integer", example=1),
+     *                     @OA\Property(property="name", type="string", example="João"),
+     *                     @OA\Property(property="cpf", type="string", example="12345678901"),
+     *                     @OA\Property(
+     *                         property="organs",
+     *                         type="array",
+     *                         @OA\Items(
+     *                             type="object",
+     *                             @OA\Property(property="id", type="integer", example=10),
+     *                             @OA\Property(property="organ_type", type="string", example="Coração"),
+     *                             @OA\Property(property="status", type="string", example="Donated"),
+     *                             @OA\Property(property="expiration_date", type="string", format="date", example="2024-12-31"),
+     *                             @OA\Property(property="hospital_id", type="integer", example=1)
+     *                         )
+     *                     )
      *                 )
      *             )
      *         )
@@ -192,7 +259,7 @@ class OrganController extends Controller
     /**
      * @OA\Get(
      *     path="/api/organs/waiting-list",
-     *     summary="Listar todos os usuários na fila de espera por órgãos",
+     *     summary="Listar usuários na fila de espera por órgãos",
      *     tags={"Órgãos"},
      *     @OA\Response(
      *         response=200,
@@ -204,7 +271,13 @@ class OrganController extends Controller
      *             @OA\Property(
      *                 property="data",
      *                 type="array",
-     *                 @OA\Items(type="object", example={"id": 1, "name": "Maria", "organ_requested": "Rim", "status": "Waiting"})
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(property="id", type="integer", example=1),
+     *                     @OA\Property(property="name", type="string", example="Maria"),
+     *                     @OA\Property(property="organ_requested", type="string", example="Rim"),
+     *                     @OA\Property(property="status", type="string", example="Waiting")
+     *                 )
      *             )
      *         )
      *     )
@@ -219,4 +292,6 @@ class OrganController extends Controller
             'data' => $waitingList,
         ]);
     }
+
+
 }
