@@ -8,6 +8,7 @@ Este é o backend do projeto **LifeLoom**, desenvolvido com **Laravel 11** e uti
 - João Victor Guimarães Santos - 2212057
 - João Marcos Fleury - 2211142
 - Marcos Vinícius Silva Andrade - 2210372
+- Vanessa Nassar Aji - 2311987
 
 ## Funcionalidades
 - Gerenciamento de usuários (doadores, receptores e administradores).
