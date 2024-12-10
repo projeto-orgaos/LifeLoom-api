@@ -4,7 +4,8 @@ FROM php:8.3-fpm
 # Install system dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
     libpq-dev \
-    && docker-php-ext-install pdo pdo_pgsql
+    libzip-dev \
+    && docker-php-ext-install pdo pdo_pgsql zip
 
 # Install Composer
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
@@ -18,8 +19,12 @@ COPY . .
 # Ensure proper permissions for Laravel storage and cache directories
 RUN chmod -R 775 storage bootstrap/cache
 
-# Install PHP dependencies using Composer
-RUN composer install --no-dev --optimize-autoloader
+# Copy composer.lock and composer.json
+COPY composer.json composer.json
+COPY composer.lock composer.lock
+
+# Clear composer cache and install PHP dependencies
+RUN composer clear-cache && composer install --no-dev --optimize-autoloader
 
 # Expose port 3000 for Laravel's built-in server
 EXPOSE 3000
