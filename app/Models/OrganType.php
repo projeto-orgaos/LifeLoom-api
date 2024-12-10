@@ -25,7 +25,7 @@ class OrganType extends Model
      */
     public function getCompatibilityCriteriaAttribute($value): ?array
     {
-        return $value ? json_decode($value, true) : null;
+        return !empty($value) ? json_decode($value, true) : null;
     }
 
     /**
@@ -35,7 +35,7 @@ class OrganType extends Model
      */
     public function setCompatibilityCriteriaAttribute($value): void
     {
-        $this->attributes['compatibility_criteria'] = $value ? json_encode($value) : null;
+        $this->attributes['compatibility_criteria'] = $value ? json_encode($value, JSON_THROW_ON_ERROR) : null;
     }
 
     /**
