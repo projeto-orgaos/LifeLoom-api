@@ -4,8 +4,9 @@ FROM php:8.3-fpm
 # Install system dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
     libpq-dev \
-    libzip-dev \
-    && docker-php-ext-install pdo pdo_pgsql zip
+    default-mysql-client \
+    && docker-php-ext-install pdo pdo_pgsql pdo_mysql
+
 
 # Install Composer
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
