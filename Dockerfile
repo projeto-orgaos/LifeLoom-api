@@ -32,8 +32,6 @@ EXPOSE 3000
 # Generate the Laravel application key
 RUN php artisan key:generate
 
-# Passport install
-RUN php artisan passport:install
-
+RUN php artisan passport:keys --force
 # Set the default command to serve the application
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=3000"]
