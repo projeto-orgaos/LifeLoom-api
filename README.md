@@ -1,6 +1,13 @@
 # LifeLoom - Backend (Laravel 11)
 
 Este é o backend do projeto **LifeLoom**, desenvolvido com **Laravel 11** e utilizando **MySQL** como banco de dados. O sistema já possui uma estrutura de banco de dados pré-configurada, incluindo as tabelas e registros essenciais para o funcionamento.
+- Emilly Eduarda Bitencourt Cardoso - 2210568
+- Edwin Nichollas Rocha Medina - 221152
+- Felipe Brian Marques Gonçalves - 2210360
+- João Vitor Luiz Soares Silva - 2212349 
+- João Victor Guimarães Santos - 2212057
+- João Marcos Fleury - 2211142
+- Marcos Vinícius Silva Andrade - 2210372
 
 ## Funcionalidades
 - Gerenciamento de usuários (doadores, receptores e administradores).
