@@ -86,11 +86,21 @@ php artisan migrate --seed
 ### 6. Instale o Laravel Passport
 Configure o **Laravel Passport** para autenticação de APIs:
 
-```bash
+```bash 
 php artisan passport:install
 ```
 
 ---
+
+### 7. Criando credenciais do passport
+Para criar as credenciais do passport, execute o comando:
+
+```bash
+php artisan passport:client --personal
+php artisan passport:client --password
+
+```
+
 
 ### 7. Inicie o Servidor
 Inicie o servidor local para acessar a aplicação:
@@ -113,3 +123,37 @@ Caso precise resetar o banco de dados, use o comando:
 php artisan migrate:refresh --seed
 ```
 
+
+#### Limpar Cache
+Para limpar o cache da aplicação, use o comando:
+
+```bash
+php artisan cache:clear
+```
+
+### Exemplos de body para requisições
+
+#### Registro de Usuário
+```json
+{
+  "name": "John Doe",
+  "cpf": "00100101110",
+  "birth_date": "2004-05-30",
+  "gender": "male",
+  "mother_name": "Jaciara da Silva",
+  "email": "john@example.com",
+  "password": "password123",
+  "profile_id": 1,
+  "phone": "62999999999",
+  "blood_type": "O+",
+  "address": {
+    "street": "Rua das Flores",
+    "number": "123",
+    "complement": "Apto 101",
+    "neighborhood": "Centro",
+    "city": "São Paulo",
+    "state": "SP",
+    "zip_code": "01000-000"
+  }
+}
+```
